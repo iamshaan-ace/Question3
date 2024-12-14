@@ -1,0 +1,36 @@
+<h1>All Movies</h1>
+
+<!-- Search Form -->
+<form action="/movies/search" method="GET" style="margin-bottom: 20px;">
+  <label for="search" style="font-weight: bold;">Search for a Movie by ID or Movie_ID:</label>
+  <input type="text" name="id" id="search" placeholder="Enter _id or Movie_ID" required>
+  <button type="submit">Search</button>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th>Movie ID</th>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each movies}}
+    <tr>
+      <td>{{this.Movie_ID}}</td>
+      <td>{{this.Title}}</td>
+      <td>{{this.Year}}</td>
+      <td>
+        <a href="/movies/{{this._id}}" style="color: blue; text-decoration: underline;">Details</a>
+      </td>
+    </tr>
+    {{else}}
+    <tr>
+      <td colspan="4" style="text-align: center;">No movies found</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<a href="/add-movie">Add New Movie</a>
