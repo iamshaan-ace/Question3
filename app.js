@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -5,13 +6,18 @@ const database = require('./config/database');
 const Movie = require('./models/movie');
 const { engine } = require('express-handlebars');
 const Handlebars = require('handlebars');
-require('dotenv').config();
 
 // Allow prototype properties in Handlebars
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 
 const app = express();
 const port = 8000;
+
+// Debug Logs
+console.log('DB_CONNECTION_STRING:', process.env.DB_CONNECTION_STRING);
+console.log('MONGO_URI:', process.env.MONGO_URI);
+console.log('MONGODB_URI:', process.env.MONGODB_URI);
+console.log('MongoDB URI Used:', database.url);
 
 // Middleware
 app.use(bodyParser.json());
@@ -35,7 +41,7 @@ mongoose.connect(process.env.DB_CONNECTION_STRING, {
     useUnifiedTopology: true,
   })
   .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.log('Database Connection Error:', err));
+  .catch(err => console.log('Database Connection Error:', err)); 
 
 // Root route
 app.get('/', (req, res) => {
